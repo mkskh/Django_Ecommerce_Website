@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from . import models
 
 
 def home(request):
-    return render(request, 'index.html')
+    products = models.Product.objects.all
+    return render(request, 'ecommerce/home.html', {'products': products})
+
+
