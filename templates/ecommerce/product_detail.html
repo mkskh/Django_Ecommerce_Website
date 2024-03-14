@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">About us</h1>
+        </div>
+    </div>
+</header>
+
+<h1 style="margin: 50px 260px 10px 260px; padding: 20px 260px; text-align: center;">{{ product.product_name }}</h1>
+
+<div style="display: flex; justify-content: center; margin: 20px 260px 40px 260px; padding: 20px 260px 40px 260px;">
+    <div style="flex: 1; margin-right: 20px; text-align: center;">
+        <img src="{{ product.image.url }}" alt="product" width="350" height="350">
+    </div>
+    <div style="flex: 1; text-align: left;">
+        <p>Category: {{ product.category }}</p>
+        <br>
+        <p>Description:</p>
+        <p>{{ product.description }}</p>
+        <p>${{ product.price }}</p>
+        <p>Posted: {{ product.created_at }}</p>
+        <br>
+        <a href="{% url 'ecommerce:home' %}">Go Back</a>
+    </div>
+</div>
+
+{% endblock %}
