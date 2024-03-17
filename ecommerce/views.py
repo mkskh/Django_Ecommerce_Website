@@ -1,5 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from . import models
+
+
+def custom_context(request):
+    '''pass Category to base.html for populating Category nav section'''
+    categories = models.Category.objects.all()
+    return {'categories': categories}
 
 
 def home(request):
@@ -14,5 +20,12 @@ def about(request):
 def product_detail(request, id):
     product = models.Product.objects.get(pk=id)
     return render(request, 'ecommerce/product_detail.html', {'product': product})
+
+
+def get_by_category(request, category_name):
+    category = models.Category.objects.get(name__iexact=category_name)
+    products = models.Product.objects.filter(category=category)
+    return render(request, 'ecommerce/get_by_category.html', {'products': products})
+
 
 
