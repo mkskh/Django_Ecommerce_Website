@@ -10824,3 +10824,13 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}

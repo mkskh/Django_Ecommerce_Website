@@ -1,11 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from . import models
+from cart.models import Cart
 
 
 def custom_context(request):
     '''pass Category to base.html for populating Category nav section'''
     categories = models.Category.objects.all()
-    return {'categories': categories}
+    if request.user.is_authenticated:
+        quantity_cart = Cart.objects.filter(user=request.user).count()
+    else:
+        quantity_cart = 0
+    return {'categories': categories, "quantity_cart": quantity_cart}
 
 
 def home(request):
@@ -19,7 +24,7 @@ def about(request):
 
 def product_detail(request, id):
     product = models.Product.objects.get(pk=id)
-    return render(request, 'ecommerce/product_detail.html', {'product': product})
+    return render(request, 'ecommerce/product_detail.html', {'product': product, "product_id": id})
 
 
 def get_by_category(request, category_name):

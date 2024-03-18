@@ -11,9 +11,18 @@
     </div>
 </header>
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>    
+    {% endfor %}
+{% endif %}
+
 <h1 style="margin: 50px 260px 10px 260px; padding: 20px 260px; text-align: center;">{{ product.product_name }}</h1>
 
-<div style="display: flex; justify-content: center; margin: 20px 260px 40px 260px; padding: 20px 260px 40px 260px;">
+<div style="display: flex; justify-content: center; margin: 20px 160px 40px 160px; padding: 20px 160px 40px 160px;">
     <div style="flex: 1; margin-right: 20px; text-align: center;">
         <img src="{{ product.image.url }}" alt="product" width="350" height="350">
     </div>
@@ -25,7 +34,8 @@
         <p>${{ product.price }}</p>
         <p>Posted: {{ product.created_at }}</p>
         <br>
-        <a href="{% url 'ecommerce:home' %}"><button class="btn btn-secondary" >Go Back</button></a>
+        <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;""><button class="btn btn-secondary" >Go Back</button></a>
+        <a href="{% url 'cart:add_to_cart' product_id %}"><button class="btn btn-secondary" >Add to Cart</button></a>
     </div>
 </div>
 
