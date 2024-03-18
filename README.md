@@ -2,7 +2,7 @@
 
 ## How it looks like now  
   
-![home](./!resources/media/home.png)  
+![home](./!resources/media/home2.png)  
   
   
 Template from - https://startbootstrap.com/template/shop-homepage
