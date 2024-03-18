@@ -1,5 +1,7 @@
 # Django_Ecommerce_Website
-
+  
+### Project is still in progress (the basic part has been built. 70% done)  
+  
 ## How it looks like now  
   
 ### Home page  
