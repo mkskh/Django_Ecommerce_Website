@@ -7,15 +7,19 @@
 ### Home page  
   
 ![home](./!resources/media/home2.png)  
-
+  
 ### Other products  
   
 ![home](./!resources/media/other_products.png)  
-
+  
 ### Sot by category  
   
 ![home](./!resources/media/sort_by_category.png)  
-
+  
+  ### Product details
+  
+![home](./!resources/media/product_details.png)  
+  
 ### Cart  
   
 ![home](./!resources/media/cart.png)    
