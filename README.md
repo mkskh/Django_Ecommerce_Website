@@ -12,7 +12,7 @@
   
 ![home](./!resources/media/other_products.png)  
   
-### Sot by category  
+### Sort by category  
   
 ![home](./!resources/media/sort_by_category.png)  
   
