@@ -1,6 +1,5 @@
 # Django_Ecommerce_Website
   
-### Project is still in progress (the basic part has been built. 70% done)  
   
 ## How it looks like now  
   
@@ -30,6 +29,6 @@
 - Implemented multi-categories system. We can add as many categories as we want and system will add it to Categories section (in nav bar) automatically  
 - Implemented Cart system. Each user have a different cart. Information is saved in a database
 
-
+### Project is still in progress (the basic part has been built. 70% done)    
   
 Template from - https://startbootstrap.com/template/shop-homepage  
