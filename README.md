@@ -24,6 +24,24 @@
   
 ![home](./!resources/media/cart.png)    
   
+## Login System
+    
+### Sign Up  
+  
+![home](./!resources/media/sign_up.png)  
+  
+### Sign In  
+  
+![home](./!resources/media/log_in.png)  
+  
+  ### Logged in
+  
+![home](./!resources/media/logged_in.png)  
+  
+### Update profile  
+  
+![home](./!resources/media/update.png)    
+  
   
 ### Features:  
 - Registration and Login system
