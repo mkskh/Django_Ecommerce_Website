@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Update</h1>
+            <p class="lead fw-normal text-white-50 mb-0" style="font-size: larger;">We're glad you're part of our community</p>
+            <p></p>
+        </div>
+    </div>
+</header>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>    
+    {% endfor %}
+{% endif %}
+
+<h1 style="margin: 20px 260px 10px 260px; padding: 20px 260px; text-align: center;">Please update your profile details</h1>
+
+<div style="margin: 20px 260px; padding: 20px 260px; text-align: left;">
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">Update</button>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -17,8 +17,8 @@
     <body>
 
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
+        <div class="container px-4 px-lg-5">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="{% url 'ecommerce:home' %}">The EXTP store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,23 +33,21 @@
                                 {% for category in categories %}
                                 <li><a class="dropdown-item" href="{% url 'ecommerce:get_by_category' category.name %}">{{ category.name }}</a></li>
                                 {% endfor %}
-                                <!-- <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li> -->
                             </ul>
                         </li>
                     </ul>
-                    <!-- Right side-->
-                    <ul class="navbar-nav mb-2 mb-lg-0">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <div class="d-flex align-items-center"> <!-- Add a container with flex display and align-items-center -->
-                                    <p class="mb-0 mr-2" style="color: gray;">Hello, {{ user.username }} |</p> <!-- Use margin-right for spacing -->
-                                    <a class="nav-link" style="margin-right: 10px;" href="{% url 'user:logout' %}">Log Out</a>
-                                </div>
-                            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 10px;">Hello, {{ user.username }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'user:update' %}">Update</a></li>
+                                <li><a class="dropdown-item" href="{% url 'user:logout' %}">Log Out</a></li>
+                            </ul>
+                        </li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'user:login' %}">Sign In</a></li>
-                            <li class="nav-item" style="margin-right: 10px;"><a class="nav-link" href="{% url 'user:registration' %}">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'user:login' %}">Sign In</a></li>
+                        <li class="nav-item" style="margin-right: 10px;"><a class="nav-link" href="{% url 'user:registration' %}">Sign Up</a></li>
                         {% endif %}
                         <li class="nav-item">
                             <a href="{% url 'cart:cart_details' %}">
@@ -61,11 +59,10 @@
                             </a>
                         </li>
                     </ul>
-                    
-                    
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+        
 
         {% block content %}
 

@@ -1,7 +1,27 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, UpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.models import User
+
+
+def update(request):
+
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = UpdateForm(request.POST or None, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+
+            login(request, current_user)
+            messages.success(request, "User Has Been Updated")
+            return redirect ("/")
+        return render(request, "user/update.html", {"form": form})
+    
+    else:
+        messages.success(request, "You Have To Be Logged In To Access")
+        return redirect("user")
 
 
 def registration(request):
