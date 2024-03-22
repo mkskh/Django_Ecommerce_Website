@@ -13,6 +13,74 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <style>
+            /* General CSS styles */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+            }
+        
+            /* Specific CSS styles for form elements */
+            form {
+                text-align: center;
+            }
+        
+            #search-container {
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                padding: 20px;
+                margin: 20px 70px 0px 70px;
+                border-radius: 8px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        
+            #search-container input[type="text"],
+            #search-container select,
+            #search-container input[type="number"],
+            #search-container button {
+                width: calc(25% - 15px);
+                padding: 10px;
+                margin: 10px 10px 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+        
+            #search-container label {
+                display: block;
+                margin-bottom: 5px;
+            }
+        
+            #search-container input[type="number"],
+            #search-container button {
+                width: calc(15% - 15px);
+            }
+        
+            button {
+                background-color: #868686;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+        
+            button:hover {
+                background-color: #000000;
+            }
+        
+            #results-container {
+                margin: 20px auto;
+                max-width: 600px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+        </style>
     </head>
     <body>
 

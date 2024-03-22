@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from . import models
 from cart.models import Cart
+from .forms import SearchForm
 
 
 def custom_context(request):
@@ -14,8 +15,38 @@ def custom_context(request):
 
 
 def home(request):
-    products = models.Product.objects.all
-    return render(request, 'ecommerce/home.html', {'products': products})
+
+    products = models.Product.objects.all()
+    prod_total = products.count()
+
+    if request.method == "GET":
+
+        form = SearchForm()
+
+    elif request.method == "POST":
+        form = SearchForm(request.POST)
+
+        product_name = request.POST["product_name"]
+        category = request.POST["category"]
+        price_min = request.POST["price_min"]
+        price_max = request.POST["price_max"]
+
+        if category:
+            category_name = models.Category.objects.get(pk=category)
+            products = products.filter(category=category_name)
+        
+        if product_name:
+            products = products.filter(product_name__icontains=product_name)
+
+        if price_min:
+            products = products.filter(price__gte=price_min)
+        
+        if price_max:
+            products = products.filter(price__lte=price_max)
+
+    # form = SearchForm()
+    # products = models.Product.objects.all()
+    return render(request, 'ecommerce/home.html', {'products': products, 'form': form, "prod_total": prod_total})
 
 
 def about(request):
