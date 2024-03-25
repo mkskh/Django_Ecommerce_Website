@@ -21,19 +21,23 @@ def home(request):
 
     if request.method == "GET":
 
+        category = False # for keeping chosen category in the field after clicking Search
         form = SearchForm()
 
     elif request.method == "POST":
         form = SearchForm(request.POST)
+        category = False
 
         product_name = request.POST["product_name"]
         category = request.POST["category"]
         price_min = request.POST["price_min"]
         price_max = request.POST["price_max"]
-
+        
         if category:
             category_name = models.Category.objects.get(pk=category)
             products = products.filter(category=category_name)
+            category = {"id": int(category), "name": category_name}
+            print(category)
         
         if product_name:
             products = products.filter(product_name__icontains=product_name)
@@ -44,9 +48,7 @@ def home(request):
         if price_max:
             products = products.filter(price__lte=price_max)
 
-    # form = SearchForm()
-    # products = models.Product.objects.all()
-    return render(request, 'ecommerce/home.html', {'products': products, 'form': form, "prod_total": prod_total})
+    return render(request, 'ecommerce/home.html', {'products': products, 'form': form, "prod_total": prod_total, "category": category})
 
 
 def about(request):
