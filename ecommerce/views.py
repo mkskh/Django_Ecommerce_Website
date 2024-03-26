@@ -35,11 +35,6 @@ def home(request):
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
             paginated_products = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            paginated_products = paginator.page(paginator.num_pages)
-        
-        print(category)
 
         return render(request, 'ecommerce/home.html', {'products': paginated_products, 'form': form, "prod_total": prod_total, "category": category})
 
@@ -66,7 +61,7 @@ def home(request):
         
         if price_max:
             products = products.filter(price__lte=price_max)
-    print(category)
+            
     return render(request, 'ecommerce/home.html', {'products': products, 'form': form, "prod_total": prod_total, "category": category})
 
 
