@@ -17,7 +17,11 @@
   
 ![home](./!resources/media/other_products.png)  
   
-### Sort by category  
+### Sort products (Implemented search system)  
+  
+![home](./!resources/media/search.png)  
+  
+### Sort by category(old Feature, implemented before implementing search system)  
   
 ![home](./!resources/media/sort_by_category.png)  
   
