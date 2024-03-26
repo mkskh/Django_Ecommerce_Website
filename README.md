@@ -43,6 +43,7 @@
   
   
 ### Features:  
+- Added pagination. On a full page - max 20 products
 - Implemented Search System 
 - Registration and Login system
 - Implemented multi-categories system. We can add as many categories as we want and system will add it to Categories section (in nav bar) automatically  
