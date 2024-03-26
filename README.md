@@ -1,5 +1,11 @@
 # Django_Ecommerce_Website
   
+### Features:  
+- Added pagination. On a full page - max 20 products
+- Implemented Search System 
+- Registration and Login system
+- Implemented multi-categories system. We can add as many categories as we want and system will add it to Categories section (in nav bar) automatically  
+- Implemented Cart system. Each user have a different cart. Information is saved in a database
   
 ## How it looks like now  
   
@@ -7,7 +13,7 @@
   
 ![home](./!resources/media/home2.png)  
   
-### Other products  
+### Other products (also implemented paginator)  
   
 ![home](./!resources/media/other_products.png)  
   
@@ -42,13 +48,7 @@
 ![home](./!resources/media/update.png)    
   
   
-### Features:  
-- Added pagination. On a full page - max 20 products
-- Implemented Search System 
-- Registration and Login system
-- Implemented multi-categories system. We can add as many categories as we want and system will add it to Categories section (in nav bar) automatically  
-- Implemented Cart system. Each user have a different cart. Information is saved in a database
 
-### Project is still in progress (the basic part has been built. 70% done)    
+### Project is still in progress (the basic part has been built. 80% done)    
   
 Template from - https://startbootstrap.com/template/shop-homepage  
