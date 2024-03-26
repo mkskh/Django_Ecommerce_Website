@@ -25,7 +25,7 @@
   
 ![home](./!resources/media/product_details.png)  
   
-### Cart  
+### Shopping Cart(for every user different shpping cart)  
   
 ![home](./!resources/media/cart.png)    
   
