@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . import models
 from cart.models import Cart
 from .forms import SearchForm
@@ -19,10 +20,28 @@ def home(request):
     products = models.Product.objects.all()
     prod_total = products.count()
 
+    paginator = Paginator(products, 20) # show 20 products per page
+
+    page_number = request.GET.get("page")
+
+
     if request.method == "GET":
 
         category = False # for keeping chosen category in the field after clicking Search
         form = SearchForm()
+
+        try:
+            paginated_products = paginator.page(page_number)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            paginated_products = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            paginated_products = paginator.page(paginator.num_pages)
+        
+        print(category)
+
+        return render(request, 'ecommerce/home.html', {'products': paginated_products, 'form': form, "prod_total": prod_total, "category": category})
 
     elif request.method == "POST":
         form = SearchForm(request.POST)
@@ -47,7 +66,7 @@ def home(request):
         
         if price_max:
             products = products.filter(price__lte=price_max)
-
+    print(category)
     return render(request, 'ecommerce/home.html', {'products': products, 'form': form, "prod_total": prod_total, "category": category})
 
 
@@ -64,6 +83,5 @@ def get_by_category(request, category_name):
     category = models.Category.objects.get(name__iexact=category_name)
     products = models.Product.objects.filter(category=category)
     return render(request, 'ecommerce/get_by_category.html', {'products': products})
-
 
 

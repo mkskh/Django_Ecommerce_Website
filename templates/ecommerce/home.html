@@ -77,13 +77,35 @@
     </div>
 
     <!-- button that appears after searching -->
-    {% if products|length != prod_total %}
+    {% if category != False %}
     <div style="margin: 20px 260px; padding: 20px 260px; text-align: center;">
     <a href="{% url 'ecommerce:home' %}" ><button class="btn btn-secondary">Reset</button></a>
     </div>
     {% endif %}
 
 </section>
+
+<!-- Pagination links -->
+{% if category == False %}
+    <div class="pagination-container" style="display: flex; justify-content: center; margin: 20px 0;">
+        <div class="pagination" style="display: flex; align-items: center;">
+            <span class="step-links">
+                {% if products.has_previous %}
+                    <a href="?page={{ products.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><button class="btn btn-secondary">Previous</button></a>
+                {% endif %}
+
+                <span class="current" style="font-size: 18px; color: rgb(114, 114, 114); font-weight: bold;">
+                    Page {{ products.number }} of {{ products.paginator.num_pages }} 
+                </span>
+
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><button class="btn btn-secondary">Next</button></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endif %}
+
 
 {% if not products %}
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
