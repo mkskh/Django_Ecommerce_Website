@@ -25,6 +25,15 @@ def add_to_cart(request, product_id):
     return HttpResponseRedirect(referer)
 
 
+def add_to_cart_unknown_user(request):
+
+    messages.success(request, 'To add a product to the shopping cart please sign in.')
+    
+    referer = request.META.get('HTTP_REFERER')
+    
+    return HttpResponseRedirect(referer)
+
+
 @login_required
 def cart_details(request):
     cart_items = Cart.objects.filter(user=request.user)

@@ -17,7 +17,7 @@ def custom_context(request):
 
 def home(request):
 
-    products = models.Product.objects.all()
+    products = models.Product.objects.order_by("-price")
     prod_total = products.count()
 
     paginator = Paginator(products, 20) # show 20 products per page
