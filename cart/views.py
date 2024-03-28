@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Cart
+from .forms import QuantityForm
 from ecommerce.models import Product
 from django.http import HttpResponseRedirect
 
@@ -40,6 +41,25 @@ def cart_details(request):
     total_price = sum(item.quantity * item.product.price for item in cart_items)
 
     return render(request, "cart/cart_details.html", {"cart_items": cart_items, "total_price": total_price})
+
+
+@login_required
+def update_cart_item(request, cart_item_id):
+
+    cart_item = get_object_or_404(Cart, id=cart_item_id)
+
+    if cart_item.user == request.user:
+        if request.method == "POST":    
+
+            new_quantity = request.POST.get('quantity')
+            if new_quantity.isdigit() and int(new_quantity) > 0:
+                cart_item.quantity = int(new_quantity)
+                cart_item.save()
+                messages.success(request, "Cart item quantity updated successfully")
+            else:
+                messages.error(request, "Invalid quantity value")
+    
+    return redirect('cart:cart_details')
 
 
 @login_required
