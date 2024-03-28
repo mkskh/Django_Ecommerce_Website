@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features:  
+- Added the ability to change the quantity in product details and directly in the cart
 - Added pagination. On a full page - max 20 products
 - Implemented Search System 
 - Registration and Login system

@@ -27,12 +27,17 @@
         <img src="{{ product.image.url }}" alt="product" width="350" height="350">
     </div>
     <div style="flex: 1; text-align: left;">
-        <p>Category: {{ product.category }}</p>
-        <br>
-        <p>Description:</p>
+        <p><strong><i>Seller:</i></strong> {{ product.seller }}</p>
+        <p><strong><i>Category:</i></strong> {{ product.category }}</p>
+        <h5><strong><i>Description:</i></strong> </h5>
         <p>{{ product.description }}</p>
-        <p>${{ product.price }}</p>
-        <p>Posted: {{ product.created_at }}</p>
+        <p><strong><i>Price:</i></strong> ${{ product.price }}</p>
+        {% if product.quantity > 10 %}
+        <p><strong><i>Available:</i></strong> more than 10</p>
+        {% else %}
+        <p><strong><i>Available:</i></strong> {{ product.quantity }}</p>
+        {% endif %}
+        <p><strong><i>Posted:</i></strong> {{ product.created_at|date:"Y-m-d" }}</p>
         <br>
         <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;""><button class="btn btn-secondary" >Go Back</button></a>
         {% if user.is_authenticated %}
