@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 def add_to_cart(request, product_id):
 
     if request.method == 'POST':
-        '''Add item(s) to the shopping card pressing button from product detail page'''
+        '''Add item(s) to the shopping card pressing button from product detail page '''
         product = Product.objects.get(id=product_id)
         cart_item = Cart.objects.filter(user=request.user, product=product).first()
 
