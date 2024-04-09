@@ -38,14 +38,32 @@
         <p><strong><i>Available:</i></strong> {{ product.quantity }}</p>
         {% endif %}
         <p><strong><i>Posted:</i></strong> {{ product.created_at|date:"Y-m-d" }}</p>
+        
+        <form id="add-to-cart-form" method="post" action="{% url 'cart:add_to_cart' product_id %}">
+            {% csrf_token %}
+            <div style="display: flex; align-items: center;">
+                <label for="quantity"><strong>Order quantity:</strong></label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.quantity }}" style="margin-right: 10px;">
+            </div>
+        </form>
+
         <br>
         <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;""><button class="btn btn-secondary" >Go Back</button></a>
         {% if user.is_authenticated %}
-        <a href="{% url 'cart:add_to_cart' product_id %}"><button class="btn btn-secondary" >Add to Cart</button></a>
+        <button type="button" class="btn btn-secondary" onclick="addToCart()">Add to Cart</button>
         {% else %}
         <a href="{% url 'cart:add_to_cart_unknown_user' %}"><button class="btn btn-secondary" >Add to Cart</button></a>
         {% endif %}
     </div>
 </div>
+
+<script>
+    function addToCart() {
+        // Get the form element
+        var form = document.getElementById("add-to-cart-form");
+        // Submit the form
+        form.submit();
+    }
+</script>
 
 {% endblock %}

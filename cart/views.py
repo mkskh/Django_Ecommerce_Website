@@ -9,18 +9,44 @@ from django.http import HttpResponseRedirect
 
 @login_required
 def add_to_cart(request, product_id):
-    product = Product.objects.get(id=product_id)
-    cart_item = Cart.objects.filter(user=request.user, product=product).first()
 
-    if cart_item:
-        cart_item.quantity += 1
-        cart_item.save()
-        messages.success(request, 'Item added to your cart')
+    if request.method == 'POST':
+        '''Add item(s) to the shopping card pressing button from product detail page'''
+        product = Product.objects.get(id=product_id)
+        cart_item = Cart.objects.filter(user=request.user, product=product).first()
 
-    else:
-        Cart.objects.create(user=request.user, product=product)
-        messages.success(request, 'Item added to your cart')
-    
+        quantity = request.POST.get('quantity')
+
+        if cart_item:
+            #if product already exists
+            cart_item.quantity = cart_item.quantity + int(quantity)
+            cart_item.save()
+            messages.success(request, 'Item added to your cart')
+
+        else:
+            #if product still not exists
+            cart_item = Cart.objects.create(user=request.user, product=product)
+            cart_item.quantity = int(quantity)
+            cart_item.save()
+            messages.success(request, 'Item added to your cart')
+
+    elif request.method == 'GET':
+        '''Add item to the shopping card pressing button from main page (quantity always 1)'''
+
+        product = Product.objects.get(id=product_id)
+        cart_item = Cart.objects.filter(user=request.user, product=product).first()
+
+        if cart_item:
+            #if product already exists
+            cart_item.quantity = cart_item.quantity + 1
+            cart_item.save()
+            messages.success(request, 'Item added to your cart')
+
+        else:
+            #if product still not exists
+            Cart.objects.create(user=request.user, product=product)
+            messages.success(request, 'Item added to your cart')
+        
     referer = request.META.get('HTTP_REFERER')
     
     return HttpResponseRedirect(referer)

@@ -11,3 +11,8 @@ class SearchForm(forms.Form):
     category = forms.ChoiceField(choices=category_choices, widget=forms.Select, required=False)
     price_min = forms.DecimalField(required=False)
     price_max = forms.DecimalField(required=False)
+
+
+class QuantityForm(forms.Form):
+
+    quantity = forms.IntegerField()

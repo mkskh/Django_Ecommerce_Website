@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . import models
 from cart.models import Cart
-from .forms import SearchForm
+from .forms import SearchForm, QuantityForm
 
 
 def custom_context(request):
@@ -51,7 +51,6 @@ def home(request):
             category_name = models.Category.objects.get(pk=category)
             products = products.filter(category=category_name)
             category = {"id": int(category), "name": category_name}
-            print(category)
         
         if product_name:
             products = products.filter(product_name__icontains=product_name)
