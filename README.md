@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features:  
+- Added the ability to view pictures from the "Product Description" in full size (full screen). Also we can close picture by clicking on it.
 - Added the ability to change the quantity in product details and directly in the cart
 - Added pagination. On a full page - max 20 products
 - Implemented Search System 
@@ -29,6 +30,10 @@
   ### Product details
   
 ![home](./!resources/media/product_details.png)  
+  
+### View the picture in fill size  
+  
+![home](./!resources/media/view_pic.png)    
   
 ### Shopping Cart(for every user different shpping cart)  
   

@@ -22,9 +22,9 @@
 
 <h1 style="margin: 50px 260px 10px 260px; padding: 20px 260px; text-align: center;">{{ product.product_name }}</h1>
 
-<div style="display: flex; justify-content: center; margin: 20px 160px 40px 160px; padding: 20px 160px 40px 160px;">
+<div class="photo-item" style="display: flex; justify-content: center; margin: 20px 160px 40px 160px; padding: 20px 160px 40px 160px;">
     <div style="flex: 1; margin-right: 20px; text-align: center;">
-        <img src="{{ product.image.url }}" alt="product" width="350" height="350">
+        <img src="{{ product.image.url }}" alt="product" width="550" height="550" class="preview-img" onclick="openModal('{{ product.image.url }}')">
     </div>
     <div style="flex: 1; text-align: left;">
         <p><strong><i>Seller:</i></strong> {{ product.seller }}</p>
@@ -57,7 +57,25 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="photoModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg" onclick="closeModal()">
+</div>
+
 <script>
+    function openModal(imgUrl) {
+        var modal = document.getElementById("photoModal");
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = imgUrl;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("photoModal");
+        modal.style.display = "none";
+    }
+
     function addToCart() {
         // Get the form element
         var form = document.getElementById("add-to-cart-form");
