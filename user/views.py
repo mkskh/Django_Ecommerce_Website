@@ -17,6 +17,7 @@ def update(request):
             login(request, current_user)
             messages.success(request, "User Has Been Updated")
             return redirect ("/")
+        
         return render(request, "user/update.html", {"form": form})
     
     else:
@@ -34,10 +35,10 @@ def registration(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect('user/login/')
+            return redirect('/user/login/')
         else:
             error = "You put wrong information. Please try again"
-            return render(request, 'user/registration.html', {"form": form, "error": error})
+            return render(request, '/user/registration.html', {"form": form, "error": error})
 
 
 def user_login(request):

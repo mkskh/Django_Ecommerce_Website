@@ -2,6 +2,13 @@ from typing import Any
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import UserProfile
+
+
+# class UpdateUserInfoForm(forms.ModelForm):
+#     class Meta:
+#         model = UserProfile
+#         exclude = ['user_id', 'date_of_modified', 'user']
 
 
 class UpdateForm(UserChangeForm):
