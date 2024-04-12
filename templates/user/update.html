@@ -29,6 +29,7 @@
     <form method="post" class="update-form">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ form2.as_p }}
         <br>
         <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">Update</button>
     </form>

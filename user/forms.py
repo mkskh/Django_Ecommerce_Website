@@ -11,11 +11,26 @@ from .models import UserProfile
 #         exclude = ['user_id', 'date_of_modified', 'user']
 
 
+class UpdateUserInfoForm(forms.ModelForm):
+    password = None
+    phone = forms.CharField(required=False, label="Phone", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    address = forms.CharField(required=False, label="Address", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    additional_address = forms.CharField(required=False, label="Additional Address", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    city = forms.CharField(required=False, label="City", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    region = forms.CharField(required=False, label="Region", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    zip_code = forms.CharField(required=False, label="Zip Code", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    country = forms.CharField(required=False, label="Country", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+
+    class Meta:
+        model = UserProfile
+        exclude = ['user_id', 'date_of_modified', 'user']
+
+
 class UpdateForm(UserChangeForm):
     password = None
-    email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
-    first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-    last_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
+    email = forms.EmailField(label="Email Address", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    first_name = forms.CharField(label="First Name", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
+    last_name = forms.CharField(label="Last Name", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':''}))
     
     class Meta:
         model = User
@@ -25,8 +40,8 @@ class UpdateForm(UserChangeForm):
         super(UpdateForm, self).__init__(*args, **kwargs)
 
         self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-        self.fields['username'].label = ''
+        self.fields['username'].widget.attrs['placeholder'] = ''
+        self.fields['username'].label = 'User Name'
         self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
 
