@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features:  
+- Implemented User Profile. Additionally to info from build-in User module added to User Profile(inherit from built-in User module) address fields and phone field. Added fields to UpdateUser Page. Implemented  feature "pre-filled fields" to fields on WebPage "UpdateUser" if there are some info in database.  
 - Added the ability to view pictures from the "Product Description" in full size (full screen). Also we can close picture by clicking on it.
 - Added the ability to change the quantity in product details and directly in the cart
 - Added pagination. On a full page - max 20 products
@@ -54,6 +55,7 @@
 ![home](./!resources/media/logged_in.png)  
   
 ### Update profile  
+(Implemented a user profile inherited from the built-in user module)  
   
 ![home](./!resources/media/update.png)    
   
