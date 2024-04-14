@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+
 from .models import Cart
 from .forms import QuantityForm
 from ecommerce.models import Product
-from django.http import HttpResponseRedirect
+from user.models import UserProfile
+from .forms import ShippingInfoForm
+
 
 
 @login_required
@@ -97,3 +101,40 @@ def remove_from_cart(request, cart_item_id):
         messages.success(request, "Item removed from your cart.")
 
     return redirect("cart:cart_details")
+
+
+@login_required
+def checkout(request):
+    cart = Cart.objects.filter(user=request.user)
+    profile = UserProfile.objects.filter(user=request.user).first()
+    total_price = sum(item.quantity * item.product.price for item in cart)
+    
+        # FINISH
+        
+    if request.method == 'POST':
+        form = ShippingInfoForm(request.POST)
+        if form.is_valid():
+            phone = request.POST["phone"]
+            address = request.POST["address"]
+            additional_address = request.POST["additional_address"]
+            city = request.POST["city"]
+            region = request.POST["region"]
+            zip_code = request.POST["zip_code"]
+            country = request.POST["country"]
+            
+            profile.phone = phone
+            profile.address = address
+            profile.additional_address = additional_address
+            profile.city = city
+            profile.region = region
+            profile.zip_code = zip_code
+            profile.country = country
+
+            profile.save()
+            messages.success(request, "Shipping information has been updated.")
+
+
+    if request.method == 'GET':
+        form = ShippingInfoForm(instance=profile)
+    
+    return render(request, 'cart/checkout.html', {'cart': cart, 'form': form, 'total_price': total_price})

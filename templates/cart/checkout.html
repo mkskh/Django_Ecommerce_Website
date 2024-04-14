@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Checkout</h1>
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>    
+        {% endfor %}
+    {% endif %}
+
+    <div class="card" style="margin: 40px 450px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);" >
+            <h4>Order summary</h4>
+        </div>
+        
+        <div class="card-body" >
+            <table class="table table-borderless" >
+                {% for cart_element in cart %}
+                    <tr style="margin: 40px 450px;">
+                        <td style="padding: 0px;" width="150">
+                            <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            <a href="{% url 'ecommerce:product_detail' cart_element.product.id %}">
+                                <!-- picture of the product - link to product details -->
+                                <img src="{{ cart_element.product.image.url }}" alt="product" width="80" height="80">
+                            </a>
+                        </td>
+                        <td style="padding: 0px;">
+                            <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            <h5 class="card-title">{{ cart_element.product.product_name }}</h5>
+                            <p class="card-text">Price: ${{ cart_element.total_item_price }}</p>
+                            <p class="card-text">Quantity: {{ cart_element.quantity }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <hr class="my-line" style="color: rgb(0, 0, 0);">
+            <h5 style="text-align: center;">Total: ${{ total_price }}</h5>
+            <div style="text-align: center;">
+                <a href="{% url 'cart:cart_details' %}" class="btn btn-secondary">Update</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 40px 450px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4>Shipping information</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" class="update-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">Set the Address</button>
+            </form>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px;">
+        <a href="#" class="btn btn-primary" style="padding: 12px 24px; font-size: 18px;">Pay for order</a>
+    </div>
+
+{% endblock %}

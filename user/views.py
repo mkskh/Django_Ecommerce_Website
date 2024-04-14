@@ -12,8 +12,6 @@ def update(request):
     current_user = request.user
     profile = models.UserProfile.objects.filter(user=current_user).first()
 
-# FINISH HERE
-
     if request.method == 'POST':
         form = UpdateForm(request.POST, instance=current_user)
         form2 = UpdateUserInfoForm(request.POST)

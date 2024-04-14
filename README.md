@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
-### Features:  
+### Features and Updates:  
+- Finished "Checkout page"  
 - Implemented User Profile. Additionally to info from build-in User module added to User Profile(inherit from built-in User module) address fields and phone field. Added fields to UpdateUser Page. Implemented  feature "pre-filled fields" to fields on WebPage "UpdateUser" if there are some info in database.  
 - Added the ability to view pictures from the "Product Description" in full size (full screen). Also we can close picture by clicking on it.
 - Added the ability to change the quantity in product details and directly in the cart
@@ -36,9 +37,17 @@
   
 ![home](./!resources/media/view_pic.png)    
   
-### Shopping Cart(for every user different shpping cart)  
+### Shopping Cart(for every user different shipping cart)  
   
 ![home](./!resources/media/cart.png)    
+  
+### Checkout Page (part 1)
+  
+![home](./!resources/media/checkout1.png)   
+  
+### Checkout Page (part 2)
+  
+![home](./!resources/media/checkout2.png)   
   
 ## Login System
     
