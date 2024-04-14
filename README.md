@@ -70,6 +70,6 @@
   
   
 
-### Project is still in progress (the basic part has been built. 80% done)    
+### Project is still in progress (the basic part has been built. 90% done)    
   
 Template from - https://startbootstrap.com/template/shop-homepage  
