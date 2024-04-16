@@ -63,6 +63,10 @@
   
 ![home](./!resources/media/pay_on_paypal.png)   
   
+### "Order completed" page after successful payment
+  
+![home](./!resources/media/order_completed.png)   
+  
 ## Login System
     
 ### Sign Up  
