@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+import random
 
 from .models import Cart
 from .forms import QuantityForm
@@ -9,6 +10,8 @@ from ecommerce.models import Product
 from user.models import UserProfile
 from .forms import ShippingInfoForm
 
+
+global_random_number = None
 
 
 @login_required
@@ -109,8 +112,9 @@ def checkout(request):
     profile = UserProfile.objects.filter(user=request.user).first()
     total_price = sum(item.quantity * item.product.price for item in cart)
     
-        # FINISH
-        
+    global global_random_number
+    global_random_number = random.randint(100000, 999999)
+
     if request.method == 'POST':
         form = ShippingInfoForm(request.POST)
         if form.is_valid():
@@ -137,4 +141,8 @@ def checkout(request):
     if request.method == 'GET':
         form = ShippingInfoForm(instance=profile)
     
-    return render(request, 'cart/checkout.html', {'cart': cart, 'form': form, 'total_price': total_price})
+    return render(request, 'cart/checkout.html', {'cart': cart, 'form': form, 'total_price': total_price, 'global_random_number': global_random_number})
+
+
+def payment_completed(request, order_id):
+    return render(request, 'cart/payment-completed.html')

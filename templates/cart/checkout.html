@@ -20,7 +20,7 @@
         {% endfor %}
     {% endif %}
 
-    <div class="card" style="margin: 40px 450px;">
+    <div class="card" style="margin: 40px 570px;">
         <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);" >
             <h4>Order summary</h4>
         </div>
@@ -46,14 +46,14 @@
                 {% endfor %}
             </table>
             <hr class="my-line" style="color: rgb(0, 0, 0);">
-            <h5 style="text-align: center;">Total: ${{ total_price }}</h5>
-            <div style="text-align: center;">
+            <h5 style="text-align: center; margin-top: 20px;">Total: ${{ total_price }}</h5>
+            <div style="text-align: center; margin-top: 15px;">
                 <a href="{% url 'cart:cart_details' %}" class="btn btn-secondary">Update</a>
             </div>
         </div>
     </div>
 
-    <div class="card" style="margin: 40px 450px;">
+    <div class="card" style="margin: 40px 570px;">
         <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
             <h4>Shipping information</h4>
         </div>
@@ -67,8 +67,52 @@
         </div>
     </div>
 
-    <div style="text-align: center; margin: 20px;">
-        <a href="#" class="btn btn-primary" style="padding: 12px 24px; font-size: 18px;">Pay for order</a>
+    <div class="card" style="margin: 40px 570px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4>Payment</h4>
+        </div>
+        <div class="card-body">
+            <div id="paypal-button-container"></div>
+        </div>
     </div>
 
+    
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AaMFJiPtwxV84cMJkEBDq5FkXlTuiZhdEc6kmeduIo-kZbiMhbfjOmd8OGHORdJCSDuoGrEggcYavkFM&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: "{{ total_price }}",
+                            },
+                        },
+                    ],
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function (Detail) {
+                    console.log(Detail);
+                    if(Detail.status === "COMPLETED"){
+                        window.location.href = `/cart/payment-completed/{{global_random_number}}/?status=${Detail.status}`
+                    }
+                });
+            },
+        }).render('#paypal-button-container');
+    </script>
 {% endblock %}

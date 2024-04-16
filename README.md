@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features and Updates:  
+- Implemented PayPal Payments for order
 - Finished "Checkout page"  
 - Implemented a User Profile(One-to-One Relationships). Additionally to info from build-in User module added to User Profile(inherit from built-in User module) address fields and phone field. Added fields to UpdateUser Page. Implemented  feature "pre-filled fields" to fields on WebPage "UpdateUser" if there are some info in database.  
 - Added the ability to view pictures from the "Product Description" in full size (full screen). Also we can close picture by clicking on it.  
@@ -48,6 +49,18 @@
 ### Checkout Page (part 2)
   
 ![home](./!resources/media/checkout2.png)   
+  
+### Checkout Page (part 3)
+  
+![home](./!resources/media/payments.png)   
+  
+### After clicking button "Pay with PayPal"
+  
+![home](./!resources/media/paypal.png)   
+  
+### After Login in PayPal (implemented paypal sandbox - dummy payments)
+  
+![home](./!resources/media/pay_on_paypal.png)   
   
 ## Login System
     
