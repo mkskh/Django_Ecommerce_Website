@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 import random
 
-from .models import Cart
+from .models import Cart, Order, OrderItem
 from .forms import QuantityForm
 from ecommerce.models import Product
 from user.models import UserProfile
@@ -145,4 +145,24 @@ def checkout(request):
 
 
 def payment_completed(request, order_id):
-    return render(request, 'cart/payment-completed.html')
+    '''Form order and render "Successful page"'''
+    
+    cart = Cart.objects.filter(user=request.user)
+    profile = UserProfile.objects.filter(user=request.user).first()
+
+    total_price = sum(item.quantity * item.product.price for item in cart)
+
+    order = Order.objects.create(order_number=order_id, user=request.user,
+                                ship_info=profile, amount_paid=total_price)
+    
+    order_items_list = []
+    for cart_element in cart:
+        order_item = OrderItem.objects.create(order=order, product=cart_element.product,
+                                user=request.user, quantity=cart_element.quantity,
+                                price=cart_element.product.price)
+        
+        order_items_list.append(order_item)
+    
+    cart.delete()
+
+    return render(request, 'cart/payment-completed.html', {'order': order, 'order_items_list': order_items_list})
