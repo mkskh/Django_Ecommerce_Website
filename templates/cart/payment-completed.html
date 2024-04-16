@@ -6,7 +6,7 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Checkout</h1>
+                <h1 class="display-4 fw-bolder">Order completed</h1>
             </div>
         </div>
     </header>
@@ -20,6 +20,22 @@
         {% endfor %}
     {% endif %}
 
-    <p>Successful</p>
-    
+    <br><br><br>
+    <h4 style="text-align: center;">The payment was successful. Your order number - {{order.order_number}} </h4>
+    <br>
+    <div class="card" style="margin: 40px 450px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4>Order #{{order.order_number}}</h4>
+        </div>
+        <div class="card-body" style="text-align: center;">
+            <p>Dear {{order.user.first_name}} {{order.user.last_name}}, thank you for your order.</p>
+            <p>You will receive a message with a tracking number when we send your order.</p>
+            <p>We wish you a nice day.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 15px 10px; padding: 15px 10px;">
+        <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;"><button class="btn btn-secondary">Go To The Main Page</button></a>
+        <a href="#" style="margin-right: 30px;"><button class="btn btn-secondary">View Order Details</button></a>
+    </div>
 {% endblock %}
