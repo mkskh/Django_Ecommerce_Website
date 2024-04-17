@@ -1,7 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features and Updates:  
-- Implemented creation Order and deleting Shopping-Cart elements after payment
+- Implemented creation Order(new database elements) and deleting Shopping-Cart elements(from database) after payment
 - Implemented PayPal Payments for order
 - Finished "Checkout page"  
 - Implemented a User Profile(One-to-One Relationships). Additionally to info from build-in User module added to User Profile(inherit from built-in User module) address fields and phone field. Added fields to UpdateUser Page. Implemented  feature "pre-filled fields" to fields on WebPage "UpdateUser" if there are some info in database.  
