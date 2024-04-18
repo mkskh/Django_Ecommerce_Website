@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Order details</h1>
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>    
+        {% endfor %}
+    {% endif %}
+
+    <h2 style="text-align: center; margin-top: 35px;">The list of orders:</h2>
+    
+    {% for order in orders %}
+    <!-- List every order for specific user -->
+
+    <div class="card" style="margin: 40px 450px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4><a href="{% url 'cart:order_details' order.order_number %}" style="color: black;">{{ order }}</a></h4>
+        </div>
+        <div class="card-body" style="text-align: center;">
+            <table class="table table-borderless" >
+                {% for order_items in order_items_list %}
+                    {% for item in order_items %}
+                        {% if item.order.id == order.id %}
+                            <tr style="margin: 40px 450px;">
+                                <td style="padding: 0px;" width="150">
+                                    <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                    <a href="{% url 'ecommerce:product_detail' item.product.id %}">
+                                        <!-- picture of the product - link to product details -->
+                                        <img src="{{ item.product.image.url }}" alt="product" width="80" height="80">
+                                    </a>
+                                </td>
+                                <td style="padding: 0px; text-align: left;" width="150px">
+                                    <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                </td>
+                                <td style="padding: 0px; text-align: left;">
+                                    <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                    <h5 class="card-title">{{ item.product.product_name }}</h5>
+                                    <p class="card-text">Price: ${{ item.total_item_price }}</p>
+                                    <p class="card-text">Quantity: {{ item.quantity }}</p>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div style="text-align: center; margin: 15px 10px; padding: 15px 10px;">
+        <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;"><button class="btn btn-secondary">Go To The Main Page</button></a>
+    </div>
+
+{% endblock %}

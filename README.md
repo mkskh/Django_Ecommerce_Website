@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
-### Features and Updates:  
+### Features and Updates: 
+- Created "List Orders" and "Order Details" pages. After successful payment you can go to your Account and view your list of orders
 - Implemented creation Order and deleting Shopping-Cart elements after payment
 - Implemented PayPal Payments for order
 - Finished "Checkout page"  

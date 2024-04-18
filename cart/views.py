@@ -168,10 +168,10 @@ def payment_completed(request, order_id):
         cart.delete()
 
     else:
-        order = Order.objects.filter(user=request.user, order_number=order_id).first()
-        order_items = OrderItem.objects.filter(user=request.user, order=order.id)
         
-    return render(request, 'cart/payment-completed.html', {'order': order, 'order_items_list': order_items})
+        return redirect('/')
+
+    return render(request, 'cart/payment-completed.html', {'order': order, 'order_items_list': order_items_list})
 
 
 @login_required
@@ -182,3 +182,17 @@ def order_details(request, order_num):
     order_items = OrderItem.objects.filter(user=request.user, order=order.id)
 
     return render(request, 'cart/order_details.html', {'order': order, 'order_items': order_items})
+
+
+@login_required
+def list_orders(request):
+    '''View order list'''
+
+    orders = Order.objects.filter(user=request.user)
+
+    order_items_list = []
+    for order in orders:
+        order_items = OrderItem.objects.filter(user=request.user, order=order.id)
+        order_items_list.append(order_items)
+
+    return render(request, 'cart/list_orders.html', {'orders': orders, 'order_items_list': order_items_list})
