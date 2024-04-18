@@ -144,6 +144,7 @@ def checkout(request):
     return render(request, 'cart/checkout.html', {'cart': cart, 'form': form, 'total_price': total_price, 'global_random_number': global_random_number})
 
 
+@login_required
 def payment_completed(request, order_id):
     '''Form order and render "Successful page"'''
     
@@ -152,17 +153,32 @@ def payment_completed(request, order_id):
 
     total_price = sum(item.quantity * item.product.price for item in cart)
 
-    order = Order.objects.create(order_number=order_id, user=request.user,
-                                ship_info=profile, amount_paid=total_price)
-    
-    order_items_list = []
-    for cart_element in cart:
-        order_item = OrderItem.objects.create(order=order, product=cart_element.product,
-                                user=request.user, quantity=cart_element.quantity,
-                                price=cart_element.product.price)
+    if cart:
+        order = Order.objects.create(order_number=order_id, user=request.user,
+                                    ship_info=profile, amount_paid=total_price)
         
-        order_items_list.append(order_item)
-    
-    cart.delete()
+        order_items_list = []
+        for cart_element in cart:
+            order_item = OrderItem.objects.create(order=order, product=cart_element.product,
+                                    user=request.user, quantity=cart_element.quantity,
+                                    price=cart_element.product.price)
+            
+            order_items_list.append(order_item)
+        
+        cart.delete()
 
-    return render(request, 'cart/payment-completed.html', {'order': order, 'order_items_list': order_items_list})
+    else:
+        order = Order.objects.filter(user=request.user, order_number=order_id).first()
+        order_items = OrderItem.objects.filter(user=request.user, order=order.id)
+        
+    return render(request, 'cart/payment-completed.html', {'order': order, 'order_items_list': order_items})
+
+
+@login_required
+def order_details(request, order_num):
+    '''View order details'''
+
+    order = Order.objects.filter(user=request.user, order_number=order_num).first()
+    order_items = OrderItem.objects.filter(user=request.user, order=order.id)
+
+    return render(request, 'cart/order_details.html', {'order': order, 'order_items': order_items})

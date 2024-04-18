@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Order details</h1>
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>    
+        {% endfor %}
+    {% endif %}
+
+    <h2 style="text-align: center; margin-top: 35px;">{{ order }}</h2>
+
+    <div class="card-container", style="text-align: center;">
+        <div class="card" style="margin: 40px 10px; display: inline-block; width: 650px;">
+            <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+                <h4>Products were ordered:</h4>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table table-borderless" >
+                    {% for item in order_items %}
+                        <tr style="margin: 40px 450px;">
+                            <td style="padding: 0px;" width="150">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <a href="{% url 'ecommerce:product_detail' item.product.id %}">
+                                    <!-- picture of the product - link to product details -->
+                                    <img src="{{ item.product.image.url }}" alt="product" width="80" height="80">
+                                </a>
+                            </td>
+                            <td style="padding: 0px; text-align: left;" width="150px">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            </td>
+                            <td style="padding: 0px; text-align: left;">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <h5 class="card-title">{{ item.product.product_name }}</h5>
+                                <p class="card-text">Price: ${{ item.total_item_price }}</p>
+                                <p class="card-text">Quantity: {{ item.quantity }}</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        
+        <div class="card" style="margin: 40px 10px; display: inline-block; width: 650px;">
+            <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+                <h4>Additional information:</h4>
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table table-borderless" >
+
+                        <tr style="margin: 40px 450px;">
+                            <td style="padding: 0px;" width="150">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <h5><em><strong>Shipped to:</strong></em></h5>
+                            </td>
+                            <td style="padding: 0px; text-align: left;" width="150px">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            </td>
+                            <td style="padding: 0px; text-align: left;">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <p>{{ order.user.first_name }} {{ order.user.last_name }}</p>
+                                <p>{{ order.ship_info.address }}, {{ order.ship_info.additional_address }}</p>
+                                <p>{{ order.ship_info.city }}, {{ order.ship_info.region }}</p>
+                                <p>{{ order.ship_info.zip_code }}, {{ order.ship_info.country }}</p>
+                            </td>
+                        </tr>
+
+                        <tr style="margin: 40px 450px;">
+                            <td style="padding: 0px;" width="170">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <h5><em><strong>Shipping status:</strong></em></h5>
+                            </td>
+                            <td style="padding: 0px; text-align: left;" width="150px">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            </td>
+                            <td style="padding: 0px; text-align: left;">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <p> Sent </p>
+                            </td>
+                        </tr>
+
+                        <tr style="margin: 40px 450px;">
+                            <td style="padding: 0px;" width="150">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <h5><em><strong>Contact info:</strong></em></h5>
+                            </td>
+                            <td style="padding: 0px; text-align: left;" width="150px">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            </td>
+                            <td style="padding: 0px; text-align: left;">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <p>{{ order.ship_info.phone }}</p>
+                                <p>{{ order.user.email }}</p>
+                            </td>
+                        </tr>
+
+                        <tr style="margin: 40px 450px;">
+                            <td style="padding: 0px;" width="170">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <h5><em><strong>Payment method:</strong></em></h5>
+                            </td>
+                            <td style="padding: 0px; text-align: left;" width="150px">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                            </td>
+                            <td style="padding: 0px; text-align: left;">
+                                <hr class="my-line" style="color: rgb(0, 0, 0);">
+                                <p> PayPal </p>
+                            </td>
+                        </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 15px 10px; padding: 15px 10px;">
+        <a href="{% url 'ecommerce:home' %}" style="margin-right: 30px;"><button class="btn btn-secondary">Go To The Main Page</button></a>
+        <a href="#" style="margin-right: 30px;"><button class="btn btn-secondary">View List Orders</button></a>
+    </div>
+
+{% endblock %}
