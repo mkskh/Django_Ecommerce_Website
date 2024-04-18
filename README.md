@@ -68,6 +68,14 @@
   
 ![home](./!resources/media/order_completed.png)   
   
+### Click "View Order Details"
+  
+![home](./!resources/media/order_details.png)   
+  
+### Click "View List Orders" (also we have access to this page if click right top to "Hello, {name}" and select "View List Orders")  
+  
+![home](./!resources/media/list_orders.png)   
+  
 ## Login System
     
 ### Sign Up  
