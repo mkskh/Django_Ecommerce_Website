@@ -196,3 +196,42 @@ def list_orders(request):
         order_items_list.append(order_items)
 
     return render(request, 'cart/list_orders.html', {'orders': orders, 'order_items_list': order_items_list})
+
+
+@login_required
+def buy_it_now(request, product_id):
+
+    product = Product.objects.get(id=product_id)
+    profile = UserProfile.objects.filter(user=request.user).first()
+    total_price = product.price
+
+    global global_random_number
+    global_random_number = random.randint(100000, 999999)
+    
+    if request.method == 'POST':
+        form = ShippingInfoForm(request.POST)
+        if form.is_valid():
+            phone = request.POST["phone"]
+            address = request.POST["address"]
+            additional_address = request.POST["additional_address"]
+            city = request.POST["city"]
+            region = request.POST["region"]
+            zip_code = request.POST["zip_code"]
+            country = request.POST["country"]
+            
+            profile.phone = phone
+            profile.address = address
+            profile.additional_address = additional_address
+            profile.city = city
+            profile.region = region
+            profile.zip_code = zip_code
+            profile.country = country
+
+            profile.save()
+            messages.success(request, "Shipping information has been updated.")
+
+
+    if request.method == 'GET':
+        form = ShippingInfoForm(instance=profile)
+
+    return render(request, 'cart/buy_it_now.html', {'product': product, 'form': form, 'total_price': total_price, 'global_random_number': global_random_number})

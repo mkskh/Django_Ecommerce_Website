@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Checkout</h1>
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>    
+        {% endfor %}
+    {% endif %}
+
+    <div class="card" style="margin: 40px 570px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);" >
+            <h4>Order summary</h4>
+        </div>
+        
+        <div class="card-body" >
+            <table class="table table-borderless" >
+                <tr style="margin: 40px 450px;">
+                    <td style="padding: 0px;" width="150">
+                        <hr class="my-line" style="color: rgb(0, 0, 0);">
+                        <a href="{% url 'ecommerce:product_detail' product.id %}">
+                            <!-- picture of the product - link to product details -->
+                            <img src="{{ product.image.url }}" alt="product" width="80" height="80">
+                        </a>
+                    </td>
+                    <td style="padding: 0px;">
+                        <hr class="my-line" style="color: rgb(0, 0, 0);">
+                        <h5 class="card-title">{{ product.product_name }}</h5>
+                        <p class="card-text">Price: ${{ total_price }}</p>
+                        <p class="card-text">Quantity: 1</p>
+                    </td>
+                </tr>
+            </table>
+            <hr class="my-line" style="color: rgb(0, 0, 0);">
+            <h5 style="text-align: center; margin-top: 20px;">Total: ${{ total_price }}</h5>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="{% url 'cart:cart_details' %}" class="btn btn-secondary">Update</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 40px 570px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4>Shipping information</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" class="update-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <button type="submit" class="btn btn-secondary" style="display: block; margin: 0 auto;">Set the Address</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 40px 570px;">
+        <div class="card-header" style="text-align: center; background-color: rgb(194, 192, 192);">
+            <h4>Payment</h4>
+        </div>
+        <div class="card-body">
+            <div id="paypal-button-container" class="full-width"></div>
+        </div>
+    </div>
+
+    
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AaMFJiPtwxV84cMJkEBDq5FkXlTuiZhdEc6kmeduIo-kZbiMhbfjOmd8OGHORdJCSDuoGrEggcYavkFM&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [
+                        {
+                            amount: {
+                                value: "{{ total_price }}",
+                            },
+                        },
+                    ],
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function (Detail) {
+                    console.log(Detail);
+                    if(Detail.status === "COMPLETED"){
+                        window.location.href = `/cart/payment-completed/{{global_random_number}}/?status=${Detail.status}`
+                    }
+                });
+            },
+        }).render('#paypal-button-container');
+    </script>
+{% endblock %}
