@@ -1,6 +1,7 @@
 # Django_Ecommerce_Website
   
 ### Features and Updates:  
+- Added "On sale" feature for the product. If product "on sale", we can see red badge "Sale" on the picture and crossed out old price with a big red new price.
 - Added 'Buy it Now' button  
 - Created "List Orders" and "Order Details" pages. After successful payment you can go to your Account and view your list of orders  
 - Implemented creation Order(new database elements) and deleting Shopping-Cart elements(from database) after payment
@@ -17,7 +18,7 @@
   
 ## How it looks like now  
   
-### Home page  
+### Home page (Added "On sale" feature)  
   
 ![home](./!resources/media/home2.png)  
   

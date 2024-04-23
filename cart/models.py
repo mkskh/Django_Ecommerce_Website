@@ -11,7 +11,10 @@ class Cart(models.Model):
 
     @property
     def total_item_price(self):
-        return self.quantity * self.product.price
+        if self.product.on_sale:
+            return self.quantity * self.product.sale_price
+        else:
+            return self.quantity * self.product.price
     
     def __str__(self):
         return f"{self.product} x {self.quantity}"
@@ -37,7 +40,10 @@ class OrderItem(models.Model):
 
     @property
     def total_item_price(self):
-        return self.quantity * self.price
+        if self.product.on_sale:
+            return self.quantity * self.sale_price
+        else:
+            return self.quantity * self.price
     
     def __str__(self):
         return f'{self.product.product_name} x {self.quantity}'

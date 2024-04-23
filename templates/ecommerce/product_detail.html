@@ -23,15 +23,29 @@
 <h1 style="margin: 50px 260px 10px 260px; padding: 20px 260px; text-align: center;">{{ product.product_name }}</h1>
 
 <div class="photo-item" style="display: flex; justify-content: center; margin: 20px 160px 40px 160px; padding: 20px 160px 40px 160px;">
-    <div style="flex: 1; margin-right: 20px; text-align: center;">
+    
+    <!-- if product on sale, show badge -->
+    <div style="flex: 1; margin-right: 20px; text-align: center; position: relative;">
         <img src="{{ product.image.url }}" alt="product" width="550" height="550" class="preview-img" onclick="openModal('{{ product.image.url }}')">
+        {% if product.on_sale %}
+            <div class="badge text-white position-absolute"
+                style="top: 1rem; right: 1rem; font-size: 2.5rem; background-color: red;">Sale</div>
+        {% endif %}
     </div>
+
     <div style="flex: 1; text-align: left;">
         <p><strong><i>Seller:</i></strong> {{ product.seller }}</p>
         <p><strong><i>Category:</i></strong> {{ product.category }}</p>
         <h5><strong><i>Description:</i></strong> </h5>
         <p>{{ product.description }}</p>
+
+        <!-- if product on sale, show actual price -->
+        {% if product.on_sale %}
+        <p><strong><i>Price:</i></strong> <strike>${{product.price}}</strike>&nbsp;<span style="color: red; font-size: 1.4em;">${{ product.sale_price }}</span></p>
+        {% else %}
         <p><strong><i>Price:</i></strong> ${{ product.price }}</p>
+        {% endif %}
+
         {% if product.quantity > 10 %}
         <p><strong><i>Available:</i></strong> more than 10</p>
         {% else %}

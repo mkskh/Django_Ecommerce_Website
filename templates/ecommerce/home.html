@@ -56,6 +56,31 @@
             
             <div class="col mb-5">
                 <div class="card h-100">
+                    <!-- if product on sale, show badge and actual price -->
+                    {% if product.on_sale %}
+                    <!-- Sale badge-->
+                    <div class="badge text-white position-absolute"
+                    style="top: 0.5rem; right: 0.5rem; font-size: 1.5rem; background-color: red;">Sale</div>
+                    <!-- Product image-->
+                    <a href="{% url 'ecommerce:product_detail' product.id %}">
+                        <img class="card-img-top" src="{{ product.image.url }} "alt="..." />
+                    </a>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <a href="{% url 'ecommerce:product_detail' product.id %}" style="text-decoration: none; color: black;">
+                                <h5 class="fw-bolder">{{product.product_name}}</h5>
+                            </a>
+                            
+                            <!-- Product price-->
+                            <strike>${{product.price}}</strike>&nbsp;<span style="color: red; font-size: 1.4em;">${{ product.sale_price }}</span>
+                            
+                        </div>
+                    </div>
+
+                    {% else %}
+
                     <!-- Product image-->
                     <a href="{% url 'ecommerce:product_detail' product.id %}">
                         <img class="card-img-top" src="{{ product.image.url }} "alt="..." />
@@ -70,8 +95,12 @@
                             
                             <!-- Product price-->
                             ${{product.price}}
+                            
                         </div>
                     </div>
+                    
+                    {% endif %}
+
                     <!-- Product actions-->
                     {% if user.is_authenticated %}
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -79,7 +108,7 @@
                     </div>
                     {% else %}
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'cart:add_to_cart_unknown_user' %}">Add To Cart</a></div>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'cart:add_to_cart_unknown_user' %}">Buy it Now</a></div>
                     </div>
                     {% endif %}
                 </div>

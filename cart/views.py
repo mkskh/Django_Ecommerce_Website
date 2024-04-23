@@ -71,7 +71,7 @@ def add_to_cart_unknown_user(request):
 @login_required
 def cart_details(request):
     cart_items = Cart.objects.filter(user=request.user)
-    total_price = sum(item.quantity * item.product.price for item in cart_items)
+    total_price = sum(item.quantity * (item.product.sale_price if item.product.on_sale else item.product.price) for item in cart_items)
 
     return render(request, "cart/cart_details.html", {"cart_items": cart_items, "total_price": total_price})
 
@@ -110,7 +110,7 @@ def remove_from_cart(request, cart_item_id):
 def checkout(request):
     cart = Cart.objects.filter(user=request.user)
     profile = UserProfile.objects.filter(user=request.user).first()
-    total_price = sum(item.quantity * item.product.price for item in cart)
+    total_price = sum(item.quantity * (item.product.sale_price if item.product.on_sale else item.product.price) for item in cart)
     
     global global_random_number
     global_random_number = random.randint(100000, 999999)
@@ -203,7 +203,11 @@ def buy_it_now(request, product_id):
 
     product = Product.objects.get(id=product_id)
     profile = UserProfile.objects.filter(user=request.user).first()
-    total_price = product.price
+
+    if product.on_sale:
+        total_price = product.sale_price
+    else:
+        total_price = product.price
 
     global global_random_number
     global_random_number = random.randint(100000, 999999)
