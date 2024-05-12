@@ -41,7 +41,7 @@ class OrderItem(models.Model):
     @property
     def total_item_price(self):
         if self.product.on_sale:
-            return self.quantity * self.sale_price
+            return self.quantity * self.product.sale_price
         else:
             return self.quantity * self.price
     
