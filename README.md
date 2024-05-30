@@ -16,7 +16,7 @@
 - Implemented multi-categories system. We can add as many categories as we want and system will add it to Categories section (in nav bar) automatically  
 - Implemented Cart system. Each user have a different cart. Information is saved in a database
   
-## How it looks like now  
+## How it looks like:  
   
 ### Home page (Added "On sale" feature)  
   
@@ -97,8 +97,6 @@
   
 ![home](./!resources/media/update.png)    
   
+    
   
-
-### Project is still in progress (the basic part has been built. 90% done)    
-  
-Template from - https://startbootstrap.com/template/shop-homepage  
+Template from (only basic things) - https://startbootstrap.com/template/shop-homepage  
